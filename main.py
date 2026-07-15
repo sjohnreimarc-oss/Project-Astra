@@ -99,15 +99,19 @@ class InjectionVelocity:
     pass
 
 
-class ProjectAstraGUI:
-    """GUI class for the Orbital Velocity Calculator using CustomTkinter."""
+class ProjectAstraGUI(ctk.CTk):
+    """GUI class for Project Astra."""
 
     def __init__(self):
-        ctk.set_appearance_mode("dark")
-        self.root = ctk.CTk()
-        self.root.title("Orbital Velocity Calculator V0.1")
-        self.root.geometry("1680x900")
+        super().__init__()
 
+        ctk.set_appearance_mode("dark")
+
+        # Window configuration
+        self.title("Orbital Velocity Calculator V0.1")
+        self.geometry("1680x900")
+
+        # Physics classes
         self.orbital = OrbitalVelocity()
         self.escape = EscapeVelocity()
         self.period = OrbitalPeriod()
@@ -116,51 +120,69 @@ class ProjectAstraGUI:
         self.hohmann = HohmannTransfer()
         self.injection = InjectionVelocity()
 
-        # Widgets / state
-        self.celestial_body_var = ctk.StringVar()
-        self.celestial_body_var.set("Earth")
+        # Variables
+        self.celestial_body_var = ctk.StringVar(value="Earth")
+        self.orbital_height_var = ctk.StringVar(value="Orbital Height")
 
-        ctk.CTkLabel(self.root, text="Orbital Height (KM): ").grid(row=0, column=0)
-        self.entry_orbital_height = ctk.CTkEntry(self.root)
-        self.entry_orbital_height.grid(row=0, column=1)
+        # --------------------
+        # GUI Widgets
+        # --------------------
 
-        #Dropdown menu for the celestial Bodies
-        self.dropdown = ctk.CTkOptionMenu(
-            self.root, variable=self.celestial_body_var, values=["Earth", "Moon"]
-        )
-        self.dropdown.grid(row=1, column=0, padx=10, pady=10)
+        # Orbital Height / Semi-major Axis Dropdown
+        ctk.CTkLabel(self,text="Orbital Height (KM):").grid(row=0, column=0)
+        self.input_type_dropdown = ctk.CTkOptionMenu(self,
+            variable=self.orbital_height_var, values=["Orbital Height", "Semi-major Axis"])
+        self.input_type_dropdown.grid(row=0, column=1, padx=10, pady=10)
 
-        ctk.CTkButton(self.root, text="Calculate Orbital Velocity", command=self.calculate_orbital_velocity).grid(row=1, column=1)
-        ctk.CTkButton(self.root, text="Calculate Escape Velocity", command=self.calculate_escape_velocity).grid(row=1, column=2)
+        # Celestial Body Dropdown
+        self.celestial_body_dropdown = ctk.CTkOptionMenu(self,
+            variable=self.celestial_body_var,values=["Earth", "Moon"])
+        self.celestial_body_dropdown.grid(row=1, column=0, padx=10, pady=10)
 
-        self.result_label = ctk.CTkLabel(self.root, text="Result:")
+        # Buttons
+        ctk.CTkButton(self, text="Calculate Orbital Velocity",
+            command=self.calculate_orbital_velocity).grid(row=1, column=1)
+
+        ctk.CTkButton(self,text="Calculate Escape Velocity",
+            command=self.calculate_escape_velocity).grid(row=1, column=2)
+
+        # Result Label
+        self.result_label = ctk.CTkLabel(self,
+            text="Result:")
         self.result_label.grid(row=2, column=0)
 
+    # -----------------------------------------
+    # Calculation Functions
+    # -----------------------------------------
+
     def calculate_orbital_velocity(self):
+
         body = self.celestial_body_var.get()
         entry_text = self.entry_orbital_height.get()
         try:
-            velocity = self.orbital.calculate(entry_text, body=body)
+            velocity = self.orbital.calculate(
+                entry_text,
+                body=body)
         except ValueError:
             self.result_label.configure(text="Invalid input")
             return
 
-        # Keep same formatting as original
-        self.result_label.configure(text=str(velocity) + "km/s")
-
-    def run(self):
-        self.root.mainloop()
+        self.result_label.configure(
+            text=f"{velocity} km/s")
 
     def calculate_escape_velocity(self):
         body = self.celestial_body_var.get()
         entry_text = self.entry_orbital_height.get()
         try:
-            velocity = self.escape.calculate(entry_text, body=body)
+            velocity = self.escape.calculate(
+                entry_text,
+                body=body)
+
         except ValueError:
             self.result_label.configure(text="Invalid input")
             return
-        self.result_label.configure(text=str(velocity) + "km/s")
 
+        self.result_label.configure(text=f"{velocity} km/s")
 if __name__ == "__main__":
     app = ProjectAstraGUI()
-    app.run()
+    app.mainloop()
