@@ -35,6 +35,7 @@ Generation 2 - Spacecraft and Mission Engineering
 
 - Delta-V Budget Planner
 - TWR Calculator
+- Mass Fraction Calculator
 - Payload Fraction Calculator
 - Multi-stage Rocket Calculator
 - Mission Timeline Planner
