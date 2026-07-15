@@ -18,6 +18,7 @@ v0.1
 
 v0.2
 - Escape Velocity
+  (Currently complete.)
 
 v0.3
 - Orbital Period

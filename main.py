@@ -44,6 +44,36 @@ class OrbitalVelocity:
         vel = math.sqrt(mu_val / denom)
         return round(vel, 3)
 
+class EscapeVelocity:
+    """Handles escape velocity calculations and input validation.
+    Uses gravitational parameters and mean radii from `constants.py`."""
+
+    def __init__(self, body_defaults=None):
+        self.mu = mu
+        self.radius = mean_radius
+        # Set up the constants
+
+    def calculate(self, orbital_height, body="Earth"):
+        """Calculate escape velocity (km/s).
+        Defaults to Earth if no body is specified."""
+
+        if body not in self.mu or body not in self.radius:
+            raise ValueError("Unknown celestial body")
+        try:
+            h = float(orbital_height)
+        except (TypeError, ValueError):
+            raise ValueError("Invalid orbital height")
+
+        mu_val = float(self.mu[body])
+        radius_val = float(self.radius[body])
+        denom = radius_val + h
+        if denom <= 0:
+            raise ValueError("Invalid orbital radius")
+        esc_vel = math.sqrt(2 * mu_val / denom)
+        return round(esc_vel, 3)
+
+
+
 
 class ProjectAstraGUI:
     """GUI class for the Orbital Velocity Calculator using CustomTkinter."""
@@ -52,9 +82,10 @@ class ProjectAstraGUI:
         ctk.set_appearance_mode("dark")
         self.root = ctk.CTk()
         self.root.title("Orbital Velocity Calculator V0.1")
-        self.root.geometry("500x500")
+        self.root.geometry("1680x900")
 
         self.orbital = OrbitalVelocity()
+        self.escape = EscapeVelocity()
 
         # Widgets / state
         self.celestial_body_var = ctk.StringVar()
@@ -70,7 +101,8 @@ class ProjectAstraGUI:
         )
         self.dropdown.grid(row=1, column=0, padx=10, pady=10)
 
-        ctk.CTkButton(self.root, text="Calculate", command=self.calculate_orbital_velocity).grid(row=1, column=1)
+        ctk.CTkButton(self.root, text="Calculate Orbital Velocity", command=self.calculate_orbital_velocity).grid(row=1, column=1)
+        ctk.CTkButton(self.root, text="Calculate Escape Velocity", command=self.calculate_escape_velocity).grid(row=1, column=2)
 
         self.result_label = ctk.CTkLabel(self.root, text="Result:")
         self.result_label.grid(row=2, column=0)
@@ -90,6 +122,15 @@ class ProjectAstraGUI:
     def run(self):
         self.root.mainloop()
 
+    def calculate_escape_velocity(self):
+        body = self.celestial_body_var.get()
+        entry_text = self.entry_orbital_height.get()
+        try:
+            velocity = self.escape.calculate(entry_text, body=body)
+        except ValueError:
+            self.result_label.configure(text="Invalid input")
+            return
+        self.result_label.configure(text=str(velocity) + "km/s")
 
 if __name__ == "__main__":
     app = ProjectAstraGUI()
