@@ -72,7 +72,25 @@ class EscapeVelocity:
         esc_vel = math.sqrt(2 * mu_val / denom)
         return round(esc_vel, 3)
 
+class OrbitalPeriod:
+    """Handles orbital period calculations by Kepler's third law and input validation."""
+    pass
 
+class VisViva:
+    """Handles the vis-viva equation for orbital velocity calculations."""
+    pass
+
+class Tsiolkovsky:
+    """Handles the rocket equation with the rocket equation."""
+    pass
+
+class HohmannTransfer:
+    """Handles the Hohmann Transfer equations for interplanetary transfers."""
+    pass
+
+class InjectionVelocity:
+    """Handles the injection velocity calculations."""
+    pass
 
 
 class ProjectAstraGUI:
@@ -86,6 +104,11 @@ class ProjectAstraGUI:
 
         self.orbital = OrbitalVelocity()
         self.escape = EscapeVelocity()
+        self.period = OrbitalPeriod()
+        self.visviva = VisViva()
+        self.rocket = Tsiolkovsky()
+        self.hohmann = HohmannTransfer()
+        self.injection = InjectionVelocity()
 
         # Widgets / state
         self.celestial_body_var = ctk.StringVar()
