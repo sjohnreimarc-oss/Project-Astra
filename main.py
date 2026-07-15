@@ -1,12 +1,12 @@
-from tkinter import *
-from tkinter.messagebox import *
+import customtkinter as ctk
 import math
 
-root = Tk()
+root = ctk.CTk()
+ctk.set_appearance_mode("dark")
 root.title("Orbital Velocity Calculator V0.1")
 root.geometry("500x500")
 
-celestial_body_var = StringVar()
+celestial_body_var = ctk.StringVar()
 celestial_body_var.set("Earth")
 
 
@@ -22,20 +22,27 @@ def calculate_orbital_velocity():
     elif celestial_body == "Moon":
         mu = mu_Moon
         radius = radius_Moon
-    orbital_radius = float(entry_orbital_height.get())
-    circular_orbit_velocity = round(math.sqrt(mu/(orbital_radius+radius)),3)
-    result_label.config(text=str(circular_orbit_velocity) + "km/s")
+    try:
+        orbital_radius = float(entry_orbital_height.get())
+    except ValueError:
+        result_label.configure(text="Invalid input")
+        return
+    try:
+        circular_orbit_velocity = round(math.sqrt(mu/(orbital_radius+radius)),3)
+    except ValueError:
+        result_label.configure(text="Invalid input")
+        return
+    result_label.configure(text=str(circular_orbit_velocity) + "km/s")
 
-Label(root, text="Orbital Height (KM): ").grid(row=0, column=0)
-entry_orbital_height = Entry(root)
+ctk.CTkLabel(root, text="Orbital Height (KM): ").grid(row=0, column=0)
+entry_orbital_height = ctk.CTkEntry(root)
 entry_orbital_height.grid(row=0, column=1)
 
-dropdown = OptionMenu(root, celestial_body_var, "Earth", "Moon")
-
+dropdown = ctk.CTkOptionMenu(root, variable=celestial_body_var, values=["Earth", "Moon"])
 dropdown.grid(row=1, column=0, padx=10, pady=10)
 
-Button(root, text="Calculate", command=calculate_orbital_velocity).grid(row=1, column=1)
-result_label = Label(root, text="Result:")
+ctk.CTkButton(root, text="Calculate", command=calculate_orbital_velocity).grid(row=1, column=1)
+result_label = ctk.CTkLabel(root, text="Result:")
 result_label.grid(row=2, column=0)
 
 root.mainloop()
