@@ -44,3 +44,48 @@ v0.9
 
 v1.0
 - Orbital Mission Planner
+
+FUTURE ROADMAP
+Generation 1 - Orbital Mechanics Fundamentals
+
+V0.x - V1.0
+
+
+Generation 2 - Spacecraft and Mission Engineering
+
+- Delta-V Budget Planner
+- TWR Calculator
+- Payload Fraction Calculator
+- Multi-stage Rocket Calculator
+- Mission Timeline Planner
+- Mission Comparison Tool
+- RSS Mission Profiles
+
+
+Generation 3 - Advanced Orbital Mechanics
+
+- Plane Changes
+- Combined Plane Changes
+- Bi-Elliptic Transfers
+- Rendezvous Maneuvers
+- Phasing Maneuvers
+- Launch Azimuth Calculations
+- Inclination Changes
+
+
+Generation 4 - Advanced Mission Analysis
+
+- Transfer Windows
+- Synodic Periods
+- Porkchop Plots
+- Gravity Assists
+- Lambert Solver
+
+
+Generation 5 - Astrodynamics Hell™
+
+- Numerical Integration
+- Lagrange Points
+- Three-body Problems
+- N-body Physics
+- Orbital Propagation
