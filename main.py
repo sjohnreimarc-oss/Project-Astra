@@ -86,6 +86,8 @@ class Tsiolkovsky:
 
 class HohmannTransfer:
     """Handles the Hohmann Transfer equations for interplanetary transfers."""
+    """"# NOTE TO SELF: DO THIS AS A MANAGER CLASS; NOT AN EQUATION CLASS. 
+    CALL OTHER CLASSES FOR THE CALCULATIONS. """
     pass
 
 class InjectionVelocity:
