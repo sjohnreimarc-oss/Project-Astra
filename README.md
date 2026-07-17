@@ -8,10 +8,12 @@ The goal of this project is to bridge physics, orbital mechanics, and programmin
 
 ## Current Features
 
-Version 0.2
+Version 0.4
 
 - Circular Orbital Velocity Calculator
 - Escape Velocity Calculator
+- Orbital Period
+- Vis-Viva
 
 ---
 
