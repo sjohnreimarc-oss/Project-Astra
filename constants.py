@@ -56,3 +56,15 @@ orbital_radius = {
     "Uranus": 2870658186,
     "Neptune": 4498396441
 }
+
+sphere_of_influence = {
+    "Mercury": 112000,
+    "Venus": 616000,
+    "Earth": 925000,
+    "Moon": 66100,
+    "Mars": 577000,
+    "Jupiter": 48200000,
+    "Saturn": 54800000,
+    "Uranus": 51700000,
+    "Neptune": 86700000
+}
