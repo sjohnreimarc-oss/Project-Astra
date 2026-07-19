@@ -1,0 +1,72 @@
+{
+  "Mercury": {
+    "mu": 22032,
+    "mean_radius": 2439.7,
+    "surface_gravity": 3.70,
+    "sphere_of_influence": 112000,
+    "orbital_radius": 57909227
+  },
+  "Venus": {
+    "mu": 324859,
+    "mean_radius": 6051.8,
+    "surface_gravity": 8.87,
+    "sphere_of_influence": 616000,
+    "orbital_radius": 108209475
+  },
+  "Earth": {
+    "mu": 398600,
+    "mean_radius": 6371.8,
+    "surface_gravity": 9.81,
+    "sphere_of_influence": 925000,
+    "orbital_radius": 149597870
+  },
+  "Moon": {
+    "mu": 4902.8,
+    "mean_radius": 1737.4,
+    "surface_gravity": 1.62,
+    "sphere_of_influence": 66100,
+    "orbital_radius": 384400
+  },
+  "Mars": {
+    "mu": 42828,
+    "mean_radius": 3389.5,
+    "surface_gravity": 3.72,
+    "sphere_of_influence": 577000,
+    "orbital_radius": 227939200
+  },
+  "Jupiter": {
+    "mu": 126686534,
+    "mean_radius": 69911,
+    "surface_gravity": 24.79,
+    "sphere_of_influence": 48200000,
+    "orbital_radius": 778340821
+  },
+  "Saturn": {
+    "mu": 37931187,
+    "mean_radius": 58232,
+    "surface_gravity": 10.44,
+    "sphere_of_influence": 54800000,
+    "orbital_radius": 1433449370
+  },
+  "Uranus": {
+    "mu": 5793939,
+    "mean_radius": 25362,
+    "surface_gravity": 8.69,
+    "sphere_of_influence": 51700000,
+    "orbital_radius": 2870658186
+  },
+  "Neptune": {
+    "mu": 6836529,
+    "mean_radius": 24622,
+    "surface_gravity": 11.15,
+    "sphere_of_influence": 86700000,
+    "orbital_radius": 4498396441
+  },
+  "Sun": {
+    "mu": 132712440018,
+    "mean_radius": 695700,
+    "surface_gravity": 274.0,
+    "sphere_of_influence": null,
+    "orbital_radius": 0
+  }
+}
