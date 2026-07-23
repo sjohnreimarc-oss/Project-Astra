@@ -4,3 +4,9 @@ class MissionPlanningGUI:
 
     def show_mission_planning_frame(self):
         print("Mission Planning GUI is now displayed.")
+
+    def show_mission_gui(self):
+        pass
+
+    def hide_mission_gui(self):
+        pass

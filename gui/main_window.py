@@ -6,7 +6,7 @@ from gui.orbital_mechanics_gui import OrbitalMechanicsGUI
 from gui.interplanetary_gui import InterplanetaryGUI
 from gui.mission_planning_gui import MissionPlanningGUI
 from gui.rocketry_gui import RocketryGUI
-
+from utils.helpers import resource_path
 
 class ProjectAstraGUI(ctk.CTk):
     """GUI class for Project Astra."""
@@ -23,15 +23,15 @@ class ProjectAstraGUI(ctk.CTk):
         self.planet_icons = {}
         for body, path in PLANET_ICONS.items():
             self.planet_icons[body] = ctk.CTkImage(
-                light_image=Image.open(path),
-                dark_image=Image.open(path),
+                light_image=Image.open(resource_path(path)),
+                dark_image=Image.open(resource_path(path)),
                 size=(25,25))
 
         self.ui_icons = {}
         for name, path in UI_ICONS.items():
             self.ui_icons[name] = ctk.CTkImage(
-                light_image=Image.open(path),
-                dark_image=Image.open(path),
+                light_image=Image.open(resource_path(path)),
+                dark_image=Image.open(resource_path(path)),
                 size=(20, 20))
 
         #Set up the upper frame
@@ -52,13 +52,27 @@ class ProjectAstraGUI(ctk.CTk):
         center_nav_frame.grid_columnconfigure((0, 1, 2, 3), weight=1)
         center_nav_frame.grid_rowconfigure(0, weight=1)
 
-        title_label_1 = ctk.CTkLabel(left_nav_frame, text=" Project Astra", image=self.ui_icons.get("rocket"), compound="left", font=ctk.CTkFont(size=18, weight="bold"))
+        title_label_1 = ctk.CTkLabel(left_nav_frame,
+                                     text=" Project Astra",
+                                     image=self.ui_icons.get("rocket"),
+                                     compound="left",
+                                     font=ctk.CTkFont(size=18, weight="bold"))
         title_label_2 = ctk.CTkLabel(left_nav_frame, text="Astrodynamics Toolkit", font=ctk.CTkFont(size=12))
         title_label_1.grid(row=0, column=0)
         title_label_2.grid(row=1, column=0)
 
-        misc_setting_right = ctk.CTkButton(right_nav_frame, text="", image=self.ui_icons.get("settings"), width=20, height=20, font=ctk.CTkFont(size=20, weight="bold"), fg_color="transparent")
-        misc_info_right = ctk.CTkButton(right_nav_frame, text="", image=self.ui_icons.get("info"), width=20, height=20, font=ctk.CTkFont(size=20, weight="bold"), fg_color="transparent")
+        misc_setting_right = ctk.CTkButton(right_nav_frame,
+                                           text="",
+                                           image=self.ui_icons.get("settings"),
+                                           width=20,
+                                           height=20,
+                                           font=ctk.CTkFont(size=20, weight="bold"), fg_color="transparent")
+        misc_info_right = ctk.CTkButton(right_nav_frame,
+                                        text="",
+                                        image=self.ui_icons.get("info"),
+                                        width=20,
+                                        height=20,
+                                        font=ctk.CTkFont(size=20, weight="bold"), fg_color="transparent")
         misc_setting_right.grid(row=0, column=0)
         misc_info_right.grid(row=0, column=1)
 
@@ -69,13 +83,28 @@ class ProjectAstraGUI(ctk.CTk):
 
 
         self.orbital_btn = ctk.CTkButton(center_nav_frame, text="Orbital Mechanics",
-                                    command=self.orbital_gui.show_orbital_mechanics_frame, fg_color="transparent", hover_color="#16213E", font=ctk.CTkFont(size=16))
-        self.mission_btn = ctk.CTkButton(center_nav_frame, text="Mission Planning",
-                                    command=self.mission_planning_gui.show_mission_planning_frame, fg_color="transparent", hover_color="#16213E", font=ctk.CTkFont(size=16))
-        self.rocketry_btn = ctk.CTkButton(center_nav_frame, text="Rocketry",
-                                    command=self.rocketry_gui.show_rocketry_frame, fg_color="transparent", hover_color="#16213E", font=ctk.CTkFont(size=16))
-        self.interplanetary_btn = ctk.CTkButton(center_nav_frame, text="Interplanetary Missions",
-                                    command=self.interplanetary_gui.show_interplanetary_missions_frame, fg_color="transparent", hover_color="#16213E", font=ctk.CTkFont(size=16))
+                                        command=self.orbital_gui.show_orbital_mechanics_frame,
+                                        fg_color="transparent",
+                                        hover_color="#16213E",
+                                        font=ctk.CTkFont(size=16))
+        self.mission_btn = ctk.CTkButton(center_nav_frame,
+                                         text="Mission Planning",
+                                         command=self.mission_planning_gui.show_mission_planning_frame,
+                                         fg_color="transparent",
+                                         hover_color="#16213E",
+                                         font=ctk.CTkFont(size=16))
+        self.rocketry_btn = ctk.CTkButton(center_nav_frame,
+                                          text="Rocketry",
+                                          command=self.rocketry_gui.show_rocketry_frame,
+                                          fg_color="transparent",
+                                          hover_color="#16213E",
+                                          font=ctk.CTkFont(size=16))
+        self.interplanetary_btn = ctk.CTkButton(center_nav_frame,
+                                        text="Interplanetary Missions",
+                                        command=self.interplanetary_gui.show_interplanetary_missions_frame,
+                                        fg_color="transparent",
+                                        hover_color="#16213E",
+                                        font=ctk.CTkFont(size=16))
         self.orbital_btn.grid(row=0, column=0, sticky="nsew", padx=5)
         self.mission_btn.grid(row=0, column=1, sticky="nsew", padx=5)
         self.rocketry_btn.grid(row=0, column=2, sticky="nsew", padx=5)
