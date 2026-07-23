@@ -27,38 +27,26 @@ class OrbitalMechanicsGUI:
                 dark_image=Image.open(resource_path(path)),
                 size=(20, 20))
 
-    def show_orbital_mechanics_frame(self):
-        self.app.select_nav_button(self.app.orbital_btn)
-        # Configure the tab layout (Input panel : Results panel = 1 : 2)
-        self.app.content_frame.grid_columnconfigure(0, weight=1)
-        self.app.content_frame.grid_columnconfigure(1, weight=2)
-        self.app.content_frame.grid_rowconfigure(0, weight=1)
-
+    def build_orbital_gui(self):
         self.orbital_master_frame = ctk.CTkFrame(self.app.content_frame, fg_color="transparent")
+        self.build_orbital_results_frame()
+        self.build_orbital_input_frame()
+
+    def hide_gui(self):
+        self.orbital_master_frame.grid_remove()
+
+    def show_gui(self):
         self.orbital_master_frame.grid(row=0, column=0, columnspan=2, sticky="nsew")
 
-
-        self.inputs_frame = ctk.CTkFrame(self.orbital_master_frame,
-                                         corner_radius=15,
-                                         border_width=1,
-                                         border_color="#2A2A2A",
-                                         fg_color="#1C1C1C")
+    def build_orbital_results_frame(self):
+        # ------------------------------ ORBITAL RESULTS FRAME (RIGHT SIDE) ------------------------------
         self.results_frame = ctk.CTkFrame(self.orbital_master_frame,
                                           corner_radius=15,
                                           border_width=1,
                                           border_color="#2A2A2A",
                                           fg_color="#1C1C1C")
-        self.inputs_frame.grid(row=0, column=0, padx=10, pady=20, sticky="nsew")
         self.results_frame.grid(row=0, column=1, padx=10, pady=20, sticky="nsew")
-        # Configure the inputs and results frame
-        self.inputs_frame.grid_columnconfigure(0, weight=1)
         self.results_frame.grid_columnconfigure(0, weight=1)
-
-        self.build_orbital_results_frame()
-        self.build_orbital_input_frame()
-
-    def build_orbital_results_frame(self):
-        # ------------------------------ ORBITAL RESULTS FRAME (RIGHT SIDE) ------------------------------
         # Title Frame
         title_frame = ctk.CTkFrame(self.results_frame, fg_color="transparent", corner_radius=10, height=50)
         title_frame.grid(row=0, column=0, sticky="ew", padx=15, pady=(10, 10))
@@ -241,6 +229,13 @@ class OrbitalMechanicsGUI:
 
     def build_orbital_input_frame(self):
         # ------------------------------ ORBITAL INPUTS FRAME (LEFT SIDE) ------------------------------
+        self.inputs_frame = ctk.CTkFrame(self.orbital_master_frame,
+                                         corner_radius=15,
+                                         border_width=1,
+                                         border_color="#2A2A2A",
+                                         fg_color="#1C1C1C")
+        self.inputs_frame.grid(row=0, column=0, padx=10, pady=20, sticky="nsew")
+        self.inputs_frame.grid_columnconfigure(0, weight=1)
         # INPUTS TITLE
 
         title_frame = ctk.CTkFrame(self.inputs_frame, fg_color="transparent")
@@ -603,5 +598,10 @@ class OrbitalMechanicsGUI:
         self.reset_orbital_results()
         self.main_result.configure(text="Awaiting Calculation...")
 
+        def show_orbital_gui(self):
+            self.orbital_master_frame.grid(row=0, column=0, sticky="nsew")
+
+        def hide_orbital_gui(self):
+            self.master_frame.grid_remove()
 
 

@@ -2,6 +2,8 @@ import customtkinter as ctk
 from PIL import Image
 from assets.icons import PLANET_ICONS, UI_ICONS
 from logic.orbital_mechanics_logic import OrbitalMechanicsLogic
+# from logic.mission_planning_logic import MissionPlanningLogic
+
 from gui.orbital_mechanics_gui import OrbitalMechanicsGUI
 from gui.interplanetary_gui import InterplanetaryGUI
 from gui.mission_planning_gui import MissionPlanningGUI
@@ -74,7 +76,10 @@ class ProjectAstraGUI(ctk.CTk):
                                         height=20,
                                         font=ctk.CTkFont(size=20, weight="bold"), fg_color="transparent")
         misc_setting_right.grid(row=0, column=0)
-        misc_info_right.grid(row=0, column=1)
+        misc_info_right.grid(row=0, column=1)\
+
+        self.content_frame = ctk.CTkFrame(self, fg_color="#161616")
+        self.content_frame.pack(fill="both", expand=True)
 
         self.orbital_gui = OrbitalMechanicsGUI(self)
         self.interplanetary_gui = InterplanetaryGUI(self)
@@ -83,25 +88,25 @@ class ProjectAstraGUI(ctk.CTk):
 
 
         self.orbital_btn = ctk.CTkButton(center_nav_frame, text="Orbital Mechanics",
-                                        command=self.orbital_gui.show_orbital_mechanics_frame,
+                                        command=lambda: self.show_tab("Orbital Mechanics"),
                                         fg_color="transparent",
                                         hover_color="#16213E",
                                         font=ctk.CTkFont(size=16))
         self.mission_btn = ctk.CTkButton(center_nav_frame,
                                          text="Mission Planning",
-                                         command=self.mission_planning_gui.show_mission_planning_frame,
+                                         command=lambda: self.show_tab("Mission Planning"),
                                          fg_color="transparent",
                                          hover_color="#16213E",
                                          font=ctk.CTkFont(size=16))
         self.rocketry_btn = ctk.CTkButton(center_nav_frame,
                                           text="Rocketry",
-                                          command=self.rocketry_gui.show_rocketry_frame,
+                                          command=lambda: self.show_tab("Rocketry"),
                                           fg_color="transparent",
                                           hover_color="#16213E",
                                           font=ctk.CTkFont(size=16))
         self.interplanetary_btn = ctk.CTkButton(center_nav_frame,
                                         text="Interplanetary Missions",
-                                        command=self.interplanetary_gui.show_interplanetary_missions_frame,
+                                        command=lambda: self.show_tab("Interplanetary Missions"),
                                         fg_color="transparent",
                                         hover_color="#16213E",
                                         font=ctk.CTkFont(size=16))
@@ -110,6 +115,20 @@ class ProjectAstraGUI(ctk.CTk):
         self.rocketry_btn.grid(row=0, column=2, sticky="nsew", padx=5)
         self.interplanetary_btn.grid(row=0, column=3, sticky="nsew", padx=5)
 
+        self.tabs = {
+            "Orbital Mechanics": self.orbital_gui,
+            "Mission Planning": self.mission_planning_gui,
+            "Rocketry": self.rocketry_gui,
+            "Interplanetary Missions": self.interplanetary_gui
+        }
+
+        self.nav_buttons_dict = {
+            "Orbital Mechanics": self.orbital_btn,
+            "Mission Planning": self.mission_btn,
+            "Rocketry": self.rocketry_btn,
+            "Interplanetary Missions": self.interplanetary_btn
+        }
+
         self.nav_buttons = [
             self.orbital_btn,
             self.mission_btn,
@@ -117,19 +136,20 @@ class ProjectAstraGUI(ctk.CTk):
             self.interplanetary_btn
         ]
 
-        self.content_frame = ctk.CTkFrame(self, fg_color="#161616")
-        self.content_frame.pack(fill="both", expand=True)
 
         # Initialize the GUI components
-        self.orbital_gui.show_orbital_mechanics_frame()
-        self.orbital_gui.update_body_information("Earth")
+        self.orbital_gui.build_orbital_gui()
+        self.mission_planning_gui.build_mission_planning_gui()
 
-    def select_nav_button(self, selected_button):
+        self.show_tab("Orbital Mechanics")
+
+    def show_tab(self, tab_name):
+        self.hide_all_tabs()
         for button in self.nav_buttons:
-            button.configure(
-                fg_color="transparent"
-            )
+            button.configure(fg_color="transparent")
+        self.nav_buttons_dict[tab_name].configure(fg_color="#1E40AF")
+        self.tabs.get(tab_name).show_gui()
 
-        selected_button.configure(
-            fg_color="#1E40AF"
-        )
+    def hide_all_tabs(self):
+        for tab in self.tabs.values():
+            tab.hide_gui()
